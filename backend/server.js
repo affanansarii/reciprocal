@@ -19,4 +19,13 @@ app.use('/api/tasks', taskRoutes);
 
 const PORT = process.env.PORT || 5000;
 
-app.listen(PORT, () => console.log(`listening on port ${PORT}`));
+const server = app.listen(PORT, () => console.log(`listening on port ${PORT}`));
+
+process.on("unhandledRejection", (err) => {
+    console.log(`Error: ${err.message}`);
+    console.log(`Shutting down the server due to Unhandled Promise Rejection`);
+
+    server.close(() => {
+        process.exit(1);
+    });
+});

@@ -3,7 +3,7 @@ const Project = require('../models/Project');
 
 exports.getTasks = async (req, res) => {
 
-    const tasks = await Task.find({ project: req.params.taskId });
+    const tasks = await Task.find({ project: req.params.projectId });
     res.json(tasks);
 
 };
@@ -11,7 +11,7 @@ exports.getTasks = async (req, res) => {
 exports.createTasks = async (req, res) => {
 
     const { title, status } = req.body;
-    const project = await Project.findById(req.params.taskId);
+    const project = await Project.findById(req.params.projectId);
 
     if (project) {
 
@@ -58,7 +58,7 @@ exports.deleteTask = async (req, res) => {
         const task = await Task.findById(req.params.taskId);
 
         if (task) {
-            await Task.findOneAndDelete(req.params.taskId);
+            await Task.findOneAndDelete({ _id: req.params.taskId });
             res.json({ message: 'Task removed' });
         } else {
             res.status(404).json({ message: 'Task not found' });

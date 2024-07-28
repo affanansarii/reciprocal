@@ -10,7 +10,7 @@ const {
 
 const router = express.Router();
 
-router.route('/:taskId').get(protect, getTasks).post(protect, createTasks);
+router.route('/:projectId').get(protect, getTasks).post(protect, createTasks);
 router.route('/:taskId').put(protect, updateTask).delete(protect, deleteTask);
 
 module.exports = router;

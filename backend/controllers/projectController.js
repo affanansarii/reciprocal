@@ -49,7 +49,9 @@ exports.deleteProject = async (req, res) => {
         const project = await Project.findById(req.params.id);
 
         if (project && project.user.toString() === req.user._id.toString()) {
-            await Project.findOneAndDelete(req.params.id);
+            // console.log('Project id to delete', req.params.id)
+            // console.log('Project', project)
+            await Project.findOneAndDelete({ _id: req.params.id });
             res.json({ message: 'Project deleted successfully' });
         } else {
             res.status(404).json({ message: 'Project not found' });
